@@ -15,41 +15,59 @@
         <h3 id="displayName"></h3>
       </div>
 
-      <div class="section">
+            <div class="section">
         
-          <span id="currentColor">Current Font Color: Black</span>
+          <!--<span id="currentColor" style="visible:false;">Current Font Color: Black</span> -->
       </div>
       <div class="section">
         
-          <span id="currentBackgroundColor">Current Background Color: White</span>
+          <span id="currentBackgroundColor">Enter Desired Username:</span>
       </div>
 
       <div id="inNameContainer" class="section">
-        <input id="inputName" type="text" name="uName" value="" onchange="displayName.innerText = this.value"> 
+        <input id="inputName" type="text" name="uName" value="" oninput="displayName.innerText = this.value;refreshDisplayName();"> 
       </div>
 
       <div id="backgroundColorContainer" class="section">
-        <span>Background Color Selector</span>
-      </div>
-
-      <div id="colorContainer" class="section">
         <span>Color Selector</span>
-        <button id="showHide">Show/Hide</button>
-
-
       </div>
+
+     <!-- <div id="colorContainer" class="section">
+        <span>Color Selector</span>
+        <button id="showHide" onclick="toggleColorSwatches()">Show/Hide</button>
+
+
+      </div> -->
         <div id="colorSwatchContainer" class="section">
 
+
+        <input type="range" min="0" max="15" id="slider1" oninput="sliderOnClick(1,this.value)">
+        <input type="range" min="0" max="15" id="slider2" oninput="sliderOnClick(2,this.value)">
+        <input type="range" min="0" max="15" id="slider3" oninput="sliderOnClick(3,this.value)">
 
 
 
 
         </div>
 
+        <div class="section">
+          Background Color: Normal
+          <label class="toggle-switch">
+            <input id="checkInput" oninput="checkboxHelper(this.checked)" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+          &nbsp;&nbsp;&nbsp;Mushroom Invite
+        </div>
 
+<br><br>
 
+      <div class="section">Pikmin Name: <input type="text" value="" id="nameInCode" readonly></div>
+      <div class="section"><button onclick="clipboardHelper()">Copy Pikmin Name to Clipboard</button></div>
+      <div class="section">
+        Username Character Limit: <span id="charLimit"></span>
+      </div>
 
-
+      
     </div>
   </body>
 

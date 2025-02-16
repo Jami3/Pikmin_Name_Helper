@@ -1,17 +1,39 @@
+let globalColor = `#000`;
+
+function sliderOnClick(sliderNumber,val){
+  globalColor = globalColor.substring(0,sliderNumber) + getBase16(val) + globalColor.substring(sliderNumber + 1,globalColor.length);
+  changeDisplayNameColor(globalColor);
+}
 function refreshDisplayName(){
   let dn = document.getElementById("displayName");
-  let textColor = document.getElementById("currentColor");
+  //let textColor = document.getElementById("currentColor");
+  let nameInCode = document.getElementById("nameInCode");
+  
+  nameInCode.value = `<color=${globalColor}>${dn.innerText}</color>`;
+  document.getElementById("charLimit").innerText=`${nameInCode.value.length}/30`;
 
 
-
-  dn.style.color = textColor.innerText.split(":")[1].trim();
+  dn.style.color = globalColor;
 }
 
 function changeDisplayNameColor(color){
-  let textColor = document.getElementById("currentColor");
-  textColor.innerText = `Current Font Color: ${color}`;
+  globalColor = color;
+  //let textColor = document.getElementById("currentColor");
+  //textColor.innerText = `Current Font Color: ${globalColor}`;
   refreshDisplayName();
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
 }
+
+function clipboardHelper(){
+  let copyText = document.getElementById("nameInCode");
+
+  copyText.select();
+  copyText.setSelectionRange(0,99999);
+
+  navigator.clipboard.writeText(copyText.value);
+  //alert(`${copyText.value} was copied to the clipboard`)
+}
+
 
 function getBase16(num){
   if(num == 0)return "0";
@@ -32,17 +54,35 @@ function getBase16(num){
   if(num == 15)return "f";
 
 }
+
+function checkboxHelper(val){
+  
+    let dn = document.getElementById("displayName");
+  if(val){
+    dn.style.backgroundImage= 'linear-gradient(to right, #d787e3 , #a55ad8)';
+  }else{
+
+    dn.style.backgroundImage='';
+  }
+}
+
+
 function toggleColorSwatches(){
   let elem = document.getElementById('colorSwatchContainer');
   elem.visible = !elem.visible;
+  if (elem.style.visibility == ''){
+    elem.style.visibility = 'hidden';
+  }else{
+    elem.style.visibility = '';
+  }
 }
-
+/*
 function initializeShortSwatches(){
   for( let i = 0; i < 16; i++){
     for(let k = 0; k < 16; k++){
       for(let j = 0; j < 16; j++){
         let newElem = document.createElement("div");
-        let colorStr = `#${getBase16(i)+getBase16(k)+getBase16(j)}`
+        let colorStr = `#${getBase16(i)+getBase16(j)+getBase16(k)}`
         newElem.classList.add("swatch");
         newElem.style = `background-color: ${colorStr};`
         newElem.onclick = ()=>{changeDisplayNameColor(colorStr);}
@@ -51,5 +91,9 @@ function initializeShortSwatches(){
     }
   }
 }
+*/
+// initializeShortSwatches();
 
-initializeShortSwatches();
+function initializeSliders() {
+  
+}
